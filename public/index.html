@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Traffic Light Management System | WCU</title>
+<link rel="stylesheet" href="style.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ================= 1. PUBLIC LANDING PAGE ================= -->
+<div id="landingView" class="landing-wrapper">
+  <div class="landing-bg-glow"></div>
+  
+  <!-- TOP NAVBAR -->
+  <nav class="landing-nav">
+    <div class="nav-logo">
+      <span class="logo-icon">🚦</span> <b>Traffic</b>Manage
+    </div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+    </div>
+  </nav>
+
+  <div id="home" class="landing-content">
+    <div class="landing-text">
+      <span class="badge">Real-Time & Embedded Systems Project</span>
+      <h1>Smart Traffic Light <br><span class="gradient-text">Automation System</span></h1>
+      <p>An integrated hardware and software solution combining a centralized web dashboard, mobile app, and ESP32 microcontrollers to manage physical traffic lights, emergency priorities, and incident reporting in real-time.</p>
+      
+      <div class="landing-actions">
+        <button class="btn-hero btn-admin" onclick="showLogin('admin')">👑 Admin Login</button>
+        <button class="btn-hero btn-police" onclick="showLogin('police')">👮 Police Login</button>
+      </div>
+    </div>
+
+    <div class="landing-visual">
+      <div class="glass-card traffic-mockup">
+        <div class="mockup-header">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="mockup-title">Live ESP32 Node</span>
+        </div>
+        <div class="traffic-light-mockup">
+          <div class="bulb red-glow"></div>
+          <div class="bulb yellow"></div>
+          <div class="bulb green"></div>
+        </div>
+        <div class="mockup-status">
+          <span class="status-text">For: </span>
+          <span class="status-badge online">WCU</span>
+        </div>
+        <div class="mockup-timer">⏱ 30s</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="features" class="features-section">
+    <h2>Core System Capabilities</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="f-icon">📡</div>
+        <h3>Hardware Integration</h3>
+        <p>Direct control of 220V physical traffic lights via ESP32 and relay modules.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">🚨</div>
+        <h3>Emergency Priority</h3>
+        <p>Traffic Police can instantly override signals for approaching ambulances or fire trucks.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">📝</div>
+        <h3>Incident Reporting</h3>
+        <p>Officers can log accidents, violations, and hardware issues directly from the field.</p>
+      </div>
+      <div class="feature-card">
+        <div class="f-icon">📊</div>
+        <h3>Centralized Control</h3>
+        <p>Administrators can configure timings, manage users, and generate PDF/Excel reports.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer id="about" class="landing-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>🚦 TrafficManage</h3>
+        <p>An integrated hardware and software solution for real-time traffic management.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#" onclick="showLogin('admin')">Admin Portal</a>
+        <a href="#" onclick="showLogin('police')">Police Portal</a>
+      </div>
+      <div class="footer-info">
+        <h4>Project Info</h4>
+        <p>Wachemo University</p>
+        <p>College of Engineering & Technology</p>
+        <p>Dept. of Software Engineering</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Wachemo University. Real-Time & Embedded Systems Project (SEng4162).</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ================= 2. ADMIN LOGIN PAGE ================= -->
+<div id="adminLoginView" class="login-wrapper hidden">
+  <button class="btn-back" onclick="showLanding()">← Back to Home</button>
+  
+  <div class="login-card admin-theme">
+    <div class="login-icon">👑</div>
+    <h1>Administrator Portal</h1>
+    <p class="subtitle">Sign in to manage intersections, users, and hardware.</p>
+    
+    <div class="form-group">
+      <label>Admin Username</label>
+      <input id="adminUser" placeholder="Enter admin username"/>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input id="adminPass" type="password" placeholder="••••••••"/>
+    </div>
+    <button class="btn-primary admin-btn" onclick="login('admin')">Secure Admin Login</button>
+    <div id="adminError" class="error"></div>
+    
+    <div class="login-demo">
+      <p><b>Demo Admin:</b> <code>admin / admin123</code></p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 3. POLICE LOGIN PAGE ================= -->
+<div id="policeLoginView" class="login-wrapper hidden">
+  <button class="btn-back" onclick="showLanding()">← Back to Home</button>
+  
+  <div class="login-card police-theme">
+    <div class="login-icon">👮</div>
+    <h1>Traffic Police Portal</h1>
+    <p class="subtitle">Sign in to monitor your intersection and manage emergencies.</p>
+    
+    <div class="form-group">
+      <label>Officer ID / Username</label>
+      <input id="policeUser" placeholder="Enter officer username"/>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input id="policePass" type="password" placeholder="••••••••"/>
+    </div>
+    <button class="btn-primary police-btn" onclick="login('police')">Secure Police Login</button>
+    <div id="policeError" class="error"></div>
+    
+    <div class="login-demo">
+      <p><b>Demo Police:</b> <code>police1 / police123</code></p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 4. APP DASHBOARD ================= -->
+<div id="appView" class="app hidden">
+  <aside class="sidebar">
+    <h2>🚦 TLS</h2>
+    <p id="userInfo" class="user-info"></p>
+    <nav id="navMenu"></nav>
+    <button class="btn-logout" onclick="logout()">Logout</button>
+  </aside>
+
+  <main class="content">
+    <header class="topbar">
+      <h1 id="pageTitle">Dashboard</h1>
+      <span id="statusPill" class="pill">● offline</span>
+    </header>
+
+    <!-- VIEW: DASHBOARD -->
+    <section id="view-dashboard" class="view">
+      <div class="cards">
+        <div class="card stat"><h3>Incidents</h3><p id="statIncidents">0</p></div>
+        <div class="card stat"><h3>Problems</h3><p id="statProblems">0</p></div>
+        <div class="card stat"><h3>Emergencies</h3><p id="statEmergency">0</p></div>
+        <div class="card stat status-stat"><h3>Pending Reports</h3><p id="statPending">0</p></div>
+        <div class="card stat status-stat"><h3>In Progress</h3><p id="statInProgress">0</p></div>
+        <div class="card stat status-stat"><h3>Resolved Reports</h3><p id="statResolved">0</p></div>
+      </div>
+
+      <div class="card">
+        <h3 id="dashboardReportsTitle">Recent Submitted Incidents &amp; Problems</h3>
+        <p class="hint">Police see only their own submissions. Admin sees reports from all officers.</p>
+        <div class="table-scroll">
+          <table id="dashboardReportsTable">
+            <thead>
+              <tr>
+                <th>Reference</th><th>Type</th><th>Subject</th><th>Officer</th>
+                <th>Priority</th><th>Status</th><th>Date</th><th class="admin-status-heading">Admin Action</th>
+              </tr>
+            </thead>
+            <tbody><tr><td colspan="8">Loading reports...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card monitor-card">
+        <h3>Live Intersection Monitor (4-Way)</h3>
+        <div class="intersection-grid">
+          <div class="dir-light">
+            <h4>North</h4>
+            <div id="nRed" class="lamp red"></div>
+            <div id="nYel" class="lamp yellow"></div>
+            <div id="nGrn" class="lamp green"></div>
+          </div>
+          <div class="dir-light">
+            <h4>South</h4>
+            <div id="sRed" class="lamp red"></div>
+            <div id="sYel" class="lamp yellow"></div>
+            <div id="sGrn" class="lamp green"></div>
+          </div>
+          <div class="dir-light">
+            <h4>East</h4>
+            <div id="eRed" class="lamp red"></div>
+            <div id="eYel" class="lamp yellow"></div>
+            <div id="eGrn" class="lamp green"></div>
+          </div>
+          <div class="dir-light">
+            <h4>West</h4>
+            <div id="wRed" class="lamp red"></div>
+            <div id="wYel" class="lamp yellow"></div>
+            <div id="wGrn" class="lamp green"></div>
+          </div>
+        </div>
+        <p class="monitor-info">Mode: <b id="mMode">–</b> · Countdown: <b id="mCount">–</b> s</p>
+        <p class="monitor-info" id="mUpdated"></p>
+      </div>
+
+      <div class="card" id="adminControls">
+        <h3>Manual Control (Admin)</h3>
+        <div class="btn-row">
+          <button class="btn-red"    onclick="control('red')">Red</button>
+          <button class="btn-yellow" onclick="control('yellow')">Yellow</button>
+          <button class="btn-green"  onclick="control('green')">Green</button>
+          <button class="btn-gray"   onclick="setMode('fixed')">Auto (Fixed)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW: ACCOUNTS -->
+    <section id="view-accounts" class="view hidden">
+      <div class="card">
+        <h3>Create Traffic Police Account</h3>
+        <div class="form-grid">
+          <input id="pUsername" placeholder="Username"/>
+          <input id="pPassword" type="password" placeholder="Password"/>
+          <input id="pFullname" placeholder="Full Name"/>
+          <select id="pIntersection"></select>
+          <button class="btn-primary" onclick="createPolice()">Create</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Manage Accounts</h3>
+        <table id="policeTable">
+          <thead><tr><th>ID</th><th>Username</th><th>Fullname</th><th>Active</th><th>Intersection</th><th>Action</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VIEW: INTERSECTIONS -->
+    <section id="view-intersections" class="view hidden">
+      <div class="card">
+        <h3>Register Intersection</h3>
+        <div class="form-grid">
+          <input id="iName" placeholder="Intersection Name"/>
+          <input id="iLoc"  placeholder="Location"/>
+          <button class="btn-primary" onclick="createIntersection()">Register</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Registered Intersections</h3>
+        <table id="interTable">
+          <thead><tr><th>ID</th><th>Name</th><th>Location</th><th>Active</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VIEW: CONFIG -->
+    <section id="view-config" class="view hidden">
+      <div class="card">
+        <h3>Configure Signal Operations</h3>
+        <div class="form-grid">
+          <label>Intersection</label><select id="cfgInter"></select>
+          <label>Red (s)</label><input id="cfgRed"    type="number" value="30"/>
+          <label>Yellow (s)</label><input id="cfgYellow" type="number" value="5"/>
+          <label>Green (s)</label><input id="cfgGreen"  type="number" value="30"/>
+          <label>Max Emergency (s)</label><input id="cfgMax" type="number" value="60"/>
+        </div>
+        <button class="btn-primary" onclick="saveConfig()">Save &amp; Apply to ESP32</button>
+        <p id="cfgMsg" class="hint"></p>
+      </div>
+    </section>
+
+    <!-- VIEW: INCIDENTS -->
+    <section id="view-incidents" class="view hidden">
+      <!-- Police only: Submit incident -->
+      <div class="card" id="incidentForm">
+        <h3>Record Traffic Incident</h3>
+        <div class="form-grid">
+          <select id="incType">
+            <option>Road Accident</option>
+            <option>Road Obstruction</option>
+            <option>Emergency Intervention</option>
+            <option>Other</option>
+          </select>
+          <select id="incSeverity">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+          </select>
+          <textarea id="incDesc" placeholder="Description..." rows="3"></textarea>
+        </div>
+        <button class="btn-primary" onclick="recordIncident()">Submit</button>
+        <p id="incMsg" class="hint"></p>
+      </div>
+
+      <!-- Both Admin and Police: View incident history -->
+      <div class="card">
+        <h3>Incident History</h3>
+        <table id="incTable">
+          <thead>
+            <tr>
+              <th>Ref</th><th>Type</th><th>Severity</th><th>By</th><th>Status</th><th>Date</th>
+              <th class="admin-status-heading">Admin Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VIEW: PROBLEMS -->
+    <section id="view-problems" class="view hidden">
+      <!-- Police only: Submit problem -->
+      <div class="card" id="problemForm">
+        <h3>Report Traffic Problem</h3>
+        <div class="form-grid">
+          <select id="prbCategory">
+            <option>Traffic Violation</option>
+            <option>Technical / Infrastructure Problem</option>
+          </select>
+          <select id="prbUrgency">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+          </select>
+          <textarea id="prbDetails" placeholder="Details..." rows="3"></textarea>
+        </div>
+        <button class="btn-primary" onclick="reportProblem()">Submit</button>
+        <p id="prbMsg" class="hint"></p>
+      </div>
+
+      <!-- Both Admin and Police: View problem history -->
+      <div class="card">
+        <h3>Problem History</h3>
+        <table id="prbTable">
+          <thead>
+            <tr>
+              <th>Ref</th><th>Category</th><th>Urgency</th><th>By</th><th>Status</th><th>Date</th>
+              <th class="admin-status-heading">Admin Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VIEW: EMERGENCY -->
+    <section id="view-emergency" class="view hidden">
+      <div class="card">
+        <h3>Manage Emergency Priority</h3>
+        <div class="form-grid">
+          <select id="emDirection"><option>North</option><option>South</option><option>East</option><option>West</option></select>
+          <select id="emMovement"><option>Straight</option><option>Left</option><option>Right</option></select>
+        </div>
+        <div class="btn-row">
+          <button class="btn-red"  onclick="startEmergency()">🚨 Activate Emergency</button>
+          <button class="btn-gray" onclick="endEmergency()">End Emergency</button>
+        </div>
+        <p id="emMsg" class="hint"></p>
+      </div>
+    </section>
+
+    <!-- VIEW: REPORTS -->
+    <section id="view-reports" class="view hidden">
+      <div class="card">
+        <h3>Traffic Reports</h3>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="generateReport('pdf')">Export PDF</button>
+          <button class="btn-primary" onclick="generateReport('excel')">Export Excel (CSV)</button>
+        </div>
+        <div id="reportArea"></div>
+      </div>
+      <div class="card">
+        <h3>Emergency History</h3>
+        <p class="hint">Police officers see their own emergency activations; administrators see all officers.</p>
+        <div class="table-scroll">
+          <table id="emergencyLogTable">
+            <thead><tr><th>ID</th><th>Officer</th><th>Intersection</th><th>Direction</th><th>Movement</th><th>Status</th><th>Started</th><th>Ended</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW: ADMIN INBOX -->
+    <section id="view-inbox" class="view hidden">
+      <div class="card">
+        <h3>📥 Police Reports Inbox (Incidents & Problems)</h3>
+        <p class="hint" style="text-align: left; margin-bottom: 15px;">
+          Review traffic incidents and technical problems reported by assigned Traffic Police officers.
+        </p>
+        <table id="inboxTable">
+          <thead>
+            <tr>
+              <th>Ref ID</th><th>Type</th><th>Officer</th><th>Details</th><th>Date</th><th>Status</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="app.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById('adminLoginView').classList.add('hidden');
+    document.getElementById('policeLoginView').classList.add('hidden');
+    document.getElementById('appView').classList.add('hidden');
+    document.getElementById('landingView').classList.remove('hidden');
+  });
+</script>
+</body>
+</html>
