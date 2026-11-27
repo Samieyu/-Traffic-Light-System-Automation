@@ -112,12 +112,10 @@
 <!-- ================= 2. ADMIN LOGIN PAGE ================= -->
 <div id="adminLoginView" class="login-wrapper hidden">
   <button class="btn-back" onclick="showLanding()">← Back to Home</button>
-  
   <div class="login-card admin-theme">
     <div class="login-icon">👑</div>
     <h1>Administrator Portal</h1>
     <p class="subtitle">Sign in to manage intersections, users, and hardware.</p>
-    
     <div class="form-group">
       <label>Admin Username</label>
       <input id="adminUser" placeholder="Enter admin username"/>
@@ -128,22 +126,17 @@
     </div>
     <button class="btn-primary admin-btn" onclick="login('admin')">Secure Admin Login</button>
     <div id="adminError" class="error"></div>
-    
-    <div class="login-demo">
-      <p><b>Demo Admin:</b> <code>admin / admin123</code></p>
-    </div>
+    <div class="login-demo"><p><b>Demo Admin:</b> <code>admin / admin123</code></p></div>
   </div>
 </div>
 
 <!-- ================= 3. POLICE LOGIN PAGE ================= -->
 <div id="policeLoginView" class="login-wrapper hidden">
   <button class="btn-back" onclick="showLanding()">← Back to Home</button>
-  
   <div class="login-card police-theme">
     <div class="login-icon">👮</div>
     <h1>Traffic Police Portal</h1>
     <p class="subtitle">Sign in to monitor your intersection and manage emergencies.</p>
-    
     <div class="form-group">
       <label>Officer ID / Username</label>
       <input id="policeUser" placeholder="Enter officer username"/>
@@ -154,10 +147,7 @@
     </div>
     <button class="btn-primary police-btn" onclick="login('police')">Secure Police Login</button>
     <div id="policeError" class="error"></div>
-    
-    <div class="login-demo">
-      <p><b>Demo Police:</b> <code>police1 / police123</code></p>
-    </div>
+    <div class="login-demo"><p><b>Demo Police:</b> <code>police1 / police123</code></p></div>
   </div>
 </div>
 
@@ -179,9 +169,12 @@
     <!-- VIEW: DASHBOARD -->
     <section id="view-dashboard" class="view">
       <div class="cards">
-        <div class="card stat"><h3>Incidents</h3><p id="statIncidents">0</p></div>
-        <div class="card stat"><h3>Problems</h3><p id="statProblems">0</p></div>
+        <div class="card stat"><h3>Total Incidents</h3><p id="statIncidents">0</p></div>
+        <div class="card stat"><h3>Total Problems</h3><p id="statProblems">0</p></div>
         <div class="card stat"><h3>Emergencies</h3><p id="statEmergency">0</p></div>
+      </div>
+      
+      <div class="cards">
         <div class="card stat status-stat"><h3>Pending Reports</h3><p id="statPending">0</p></div>
         <div class="card stat status-stat"><h3>In Progress</h3><p id="statInProgress">0</p></div>
         <div class="card stat status-stat"><h3>Resolved Reports</h3><p id="statResolved">0</p></div>
@@ -206,30 +199,10 @@
       <div class="card monitor-card">
         <h3>Live Intersection Monitor (4-Way)</h3>
         <div class="intersection-grid">
-          <div class="dir-light">
-            <h4>North</h4>
-            <div id="nRed" class="lamp red"></div>
-            <div id="nYel" class="lamp yellow"></div>
-            <div id="nGrn" class="lamp green"></div>
-          </div>
-          <div class="dir-light">
-            <h4>South</h4>
-            <div id="sRed" class="lamp red"></div>
-            <div id="sYel" class="lamp yellow"></div>
-            <div id="sGrn" class="lamp green"></div>
-          </div>
-          <div class="dir-light">
-            <h4>East</h4>
-            <div id="eRed" class="lamp red"></div>
-            <div id="eYel" class="lamp yellow"></div>
-            <div id="eGrn" class="lamp green"></div>
-          </div>
-          <div class="dir-light">
-            <h4>West</h4>
-            <div id="wRed" class="lamp red"></div>
-            <div id="wYel" class="lamp yellow"></div>
-            <div id="wGrn" class="lamp green"></div>
-          </div>
+          <div class="dir-light"><h4>North</h4><div id="nRed" class="lamp red"></div><div id="nYel" class="lamp yellow"></div><div id="nGrn" class="lamp green"></div></div>
+          <div class="dir-light"><h4>South</h4><div id="sRed" class="lamp red"></div><div id="sYel" class="lamp yellow"></div><div id="sGrn" class="lamp green"></div></div>
+          <div class="dir-light"><h4>East</h4><div id="eRed" class="lamp red"></div><div id="eYel" class="lamp yellow"></div><div id="eGrn" class="lamp green"></div></div>
+          <div class="dir-light"><h4>West</h4><div id="wRed" class="lamp red"></div><div id="wYel" class="lamp yellow"></div><div id="wGrn" class="lamp green"></div></div>
         </div>
         <p class="monitor-info">Mode: <b id="mMode">–</b> · Countdown: <b id="mCount">–</b> s</p>
         <p class="monitor-info" id="mUpdated"></p>
@@ -304,37 +277,22 @@
 
     <!-- VIEW: INCIDENTS -->
     <section id="view-incidents" class="view hidden">
-      <!-- Police only: Submit incident -->
       <div class="card" id="incidentForm">
         <h3>Record Traffic Incident</h3>
         <div class="form-grid">
           <select id="incType">
-            <option>Road Accident</option>
-            <option>Road Obstruction</option>
-            <option>Emergency Intervention</option>
-            <option>Other</option>
+            <option>Road Accident</option><option>Road Obstruction</option><option>Emergency Intervention</option><option>Other</option>
           </select>
-          <select id="incSeverity">
-            <option>Low</option>
-            <option>Medium</option>
-            <option>High</option>
-          </select>
+          <select id="incSeverity"><option>Low</option><option>Medium</option><option>High</option></select>
           <textarea id="incDesc" placeholder="Description..." rows="3"></textarea>
         </div>
         <button class="btn-primary" onclick="recordIncident()">Submit</button>
         <p id="incMsg" class="hint"></p>
       </div>
-
-      <!-- Both Admin and Police: View incident history -->
       <div class="card">
         <h3>Incident History</h3>
         <table id="incTable">
-          <thead>
-            <tr>
-              <th>Ref</th><th>Type</th><th>Severity</th><th>By</th><th>Status</th><th>Date</th>
-              <th class="admin-status-heading">Admin Action</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Ref</th><th>Type</th><th>Severity</th><th>By</th><th>Status</th><th>Date</th><th class="admin-status-heading">Admin Action</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -342,35 +300,20 @@
 
     <!-- VIEW: PROBLEMS -->
     <section id="view-problems" class="view hidden">
-      <!-- Police only: Submit problem -->
       <div class="card" id="problemForm">
         <h3>Report Traffic Problem</h3>
         <div class="form-grid">
-          <select id="prbCategory">
-            <option>Traffic Violation</option>
-            <option>Technical / Infrastructure Problem</option>
-          </select>
-          <select id="prbUrgency">
-            <option>Low</option>
-            <option>Medium</option>
-            <option>High</option>
-          </select>
+          <select id="prbCategory"><option>Traffic Violation</option><option>Technical / Infrastructure Problem</option></select>
+          <select id="prbUrgency"><option>Low</option><option>Medium</option><option>High</option></select>
           <textarea id="prbDetails" placeholder="Details..." rows="3"></textarea>
         </div>
         <button class="btn-primary" onclick="reportProblem()">Submit</button>
         <p id="prbMsg" class="hint"></p>
       </div>
-
-      <!-- Both Admin and Police: View problem history -->
       <div class="card">
         <h3>Problem History</h3>
         <table id="prbTable">
-          <thead>
-            <tr>
-              <th>Ref</th><th>Category</th><th>Urgency</th><th>By</th><th>Status</th><th>Date</th>
-              <th class="admin-status-heading">Admin Action</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Ref</th><th>Category</th><th>Urgency</th><th>By</th><th>Status</th><th>Date</th><th class="admin-status-heading">Admin Action</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -418,15 +361,9 @@
     <section id="view-inbox" class="view hidden">
       <div class="card">
         <h3>📥 Police Reports Inbox (Incidents & Problems)</h3>
-        <p class="hint" style="text-align: left; margin-bottom: 15px;">
-          Review traffic incidents and technical problems reported by assigned Traffic Police officers.
-        </p>
+        <p class="hint" style="text-align: left; margin-bottom: 15px;">Review traffic incidents and technical problems reported by assigned Traffic Police officers.</p>
         <table id="inboxTable">
-          <thead>
-            <tr>
-              <th>Ref ID</th><th>Type</th><th>Officer</th><th>Details</th><th>Date</th><th>Status</th><th>Action</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Ref ID</th><th>Type</th><th>Officer</th><th>Details</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
